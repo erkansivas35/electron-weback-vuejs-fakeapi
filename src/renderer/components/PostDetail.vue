@@ -27,32 +27,35 @@ export default {
       comments: []
     }
   },
+  methods: {
+    getPost(url, type){
+      axios.get(url)
+      .then(res => {
+        if (res.status == 200) {          
+          switch (type) {
+            case 'postDetail':
+              this.postDetail = res.data;
+              break;
+            case 'comments':
+              this.comments = res.data;
+              break;
+          }
+          this.isLoading = false;
+          console.log('axios.get success! -', type);
+        }
+      })
+      .catch(e => {
+        this.isLoading = false;
+        console.log(`Error: ${e}`);
+      })
+    }
+  },
   created() {
-    axios.get(`http://jsonplaceholder.typicode.com/posts/${this.$route.params.postId}`)
-      .then(res => {
-        if (res.status == 200) {
-          this.postDetail = res.data;
-          this.isLoading = false;
-          console.log('axios.get success!');
-        }
-      })
-      .catch(e => {
-        this.isLoading = false;
-        console.log(`Error: ${e}`);
-      })
-
-    axios.get(`http://jsonplaceholder.typicode.com/posts/${this.$route.params.postId}/comments`)
-      .then(res => {
-        if (res.status == 200) {
-          this.comments = res.data;
-          this.isLoading = false;
-          console.log('axios.get success!');
-        }
-      })
-      .catch(e => {
-        this.isLoading = false;
-        console.log(`Error: ${e}`);
-      })      
+    const postDetailUrl = `http://jsonplaceholder.typicode.com/posts/${this.$route.params.postId}`
+    this.getPost(postDetailUrl, 'postDetail')
+  
+    const postCommentUrl = `http://jsonplaceholder.typicode.com/posts/${this.$route.params.postId}/comments`
+    this.getPost(postCommentUrl, 'comments')      
   },
   components: { Loading, DetailPost, Comments }
 }

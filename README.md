@@ -1,4 +1,4 @@
-Electron webpack with vueJS Fake api
+Electron webpack with VueJS Fake api
 
 Install [Node.js](https://nodejs.org/).
 

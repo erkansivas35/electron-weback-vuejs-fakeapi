@@ -1,7 +1,7 @@
 <template>
 <div class="post-detail">
   <div class="post-item-title">
-    <h3>{{ postDetail.title }}</h3>
+    <h3>{{ postDetail.title | toUpperCaseTransform }}</h3>
   </div>
   <div class="post-item-content">
     <p> {{ postDetail.body }}</p>
@@ -16,6 +16,11 @@ export default {
     postDetail: {
       type: Object,
       required: true
+    }
+  },
+  filters: {
+    toUpperCaseTransform(title) {
+      return title.toUpperCase();
     }
   }
 }

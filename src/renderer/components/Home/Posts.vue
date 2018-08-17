@@ -2,7 +2,7 @@
   <div class="post-item">
     <div class="post-item-con">
       <div class="post-item-title">
-        <h3>{{ mainPost.title }}</h3>
+        <h3>{{ mainPost.title | toUpperCaseTransform }}</h3>
       </div>
       <div class="post-item-content">
         <p>{{ mainPost.body }}</p>
@@ -26,6 +26,11 @@ export default {
   methods: {
     postDetailLink(id) {
       return `/post-detail/${id}`
+    }
+  },
+  filters: {
+    toUpperCaseTransform(title) {
+      return title.toUpperCase(); 
     }
   }
 }
